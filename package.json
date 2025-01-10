@@ -16,13 +16,15 @@
     "inversify": "^6.2.1",
     "inversify-express-utils": "^6.4.10",
     "sequelize": "^6.37.5",
-    "sequelize-typescript": "^2.1.6"
+    "sequelize-typescript": "^2.1.6",
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.0",
     "@types/inversify": "^2.0.33",
-    "@types/inversify-express-utils": "^2.0.0"
+    "@types/inversify-express-utils": "^2.0.0",
+    "@types/uuid": "^10.0.0"
   }
 }

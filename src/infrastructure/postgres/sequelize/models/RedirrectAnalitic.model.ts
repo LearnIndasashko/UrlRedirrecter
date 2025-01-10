@@ -1,5 +1,5 @@
 import { RedirrectAnalitic } from "@domain";
-import { Column, DataType, Index, Model, Sequelize, Table } from "sequelize-typescript";
+import { Column, CreatedAt, DataType, Index, Model, Sequelize, Table } from "sequelize-typescript";
 
 
 interface ICreation {
@@ -32,4 +32,13 @@ export class RedirectAnaliticModel extends Model<RedirrectAnalitic,ICreation> {
         allowNull : false,
     })
     shortUrl : string
+
+    @CreatedAt
+    @Column({
+        type: DataType.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false,
+    })
+    declare createdAt: Date;
+    
 }

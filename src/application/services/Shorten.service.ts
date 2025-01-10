@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { IShortenRepository, IShortenService, ShortenInfoResponse, CreateData  } from "@app";
+import { IShortenRepository, IShortenService, ShortenInfoResponse, CreateData, ApiError  } from "@app";
 import { ShortUrl } from "@domain";
 
 @injectable()
@@ -13,6 +13,9 @@ export class ShortenService implements IShortenService {
     
     async get(shortUrl: string): Promise<ShortenInfoResponse> {
         const shorten : ShortUrl=  await this.shortenRepository.getByShortUrl(shortUrl);
+        if (!shorten) {
+            throw ApiError.NotFound();
+        }
         const response : ShortenInfoResponse = {
             clickCount : shorten.clickCount,
             createdAt : shorten.createdAt,
@@ -25,7 +28,10 @@ export class ShortenService implements IShortenService {
         await this.shortenRepository.delete(shortUrl);
     }
     async getOriginalUrl(shortUrl: string): Promise<string> {
-        const shorten : ShortUrl=  await this.shortenRepository.getByShortUrl(shortUrl);
+        const shorten : ShortUrl=  await this.shortenRepository.getByShortUrl(shortUrl, true);
+        if (!shorten) {
+            throw ApiError.NotFound()
+        }
         return shorten.originalUrl; 
     }
 

@@ -1,11 +1,10 @@
 import { ShortUrl } from "@domain";
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, CreatedAt, DataType, Model, Sequelize, Table } from "sequelize-typescript";
 
 interface ICreationData {
     short : string;
     originalUrl : string;
     expiresAt? : Date;
-    alias? : string;
 }
 
 @Table({tableName : "short"})
@@ -16,13 +15,16 @@ export class ShortedModel extends Model<ShortUrl, ICreationData> {
         type : DataType.STRING,
         unique : true,
         primaryKey : true,
-        validate : {
-            max : 6,
-            min : 6,
-        },
     })
     short : string;
 
+    @CreatedAt
+    @Column({
+        type: DataType.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false,
+    })
+    declare createdAt: Date;
 
     @Column({
         type : DataType.STRING,
@@ -44,15 +46,4 @@ export class ShortedModel extends Model<ShortUrl, ICreationData> {
         allowNull : true
     })
     expiresAt? : Date;
-
-    @Column({
-        type : DataType.STRING,
-        unique : true,
-        validate : {
-            max : 20,
-            isUrl : true,
-        },
-        allowNull : true
-    })
-    alias? : string;
 }

@@ -4,5 +4,4 @@ export class ShortUrl {
     createdAt : Date;
     clickCount : number;
     expiresAt? : Date;
-    alias? : string;
 }
