@@ -11,12 +11,14 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "inversify": "^6.2.1",
     "inversify-express-utils": "^6.4.10"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
+    "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.0",
     "@types/inversify": "^2.0.33",
     "@types/inversify-express-utils": "^2.0.0"
