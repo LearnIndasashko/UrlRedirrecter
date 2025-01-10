@@ -3,6 +3,7 @@ import cors from "cors";
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { container } from "./container";
 import { serverConfig } from "@config";
+import { errorMiddleware } from './middlewares';
 
 async function bootstrap () {
 
