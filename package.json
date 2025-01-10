@@ -8,5 +8,17 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "inversify": "^6.2.1",
+    "inversify-express-utils": "^6.4.10"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/inversify": "^2.0.33",
+    "@types/inversify-express-utils": "^2.0.0"
+  }
 }
