@@ -1,4 +1,4 @@
 export class RedirrectAnalitic {
-    date : Date;
+    createdAt : Date;
     ip : string;
 }

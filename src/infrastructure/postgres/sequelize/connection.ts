@@ -2,7 +2,7 @@ import { Dialect } from 'sequelize';
 import { Sequelize } from 'sequelize-typescript';
 import { injectable } from 'inversify';
 
-import {ShortedModel} from './models';
+import {ShortedModel,RedirectAnaliticModel} from './models';
 import { databaseConfig } from '@config';
 
 @injectable()
@@ -21,7 +21,7 @@ export class SequelizeClient {
             password : databaseConfig.password,
             host : databaseConfig.host,
 
-            models: [ShortedModel,],
+            models: [ShortedModel,RedirectAnaliticModel],
             logging: false,
         });
 
