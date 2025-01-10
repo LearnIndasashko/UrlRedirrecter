@@ -4,6 +4,7 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import { container } from "./container";
 import { serverConfig } from "@config";
 import { errorMiddleware } from './middlewares';
+import { SequelizeClient } from '@infrastructure';
 
 async function bootstrap () {
 
@@ -18,7 +19,8 @@ async function bootstrap () {
     server.setErrorConfig( (app)=>{
         app.use(errorMiddleware);
     })
-
+    const seq = container.get(SequelizeClient);
+    
     const app = server.build();
     const serverInstance = app.listen(
         port, async () => {
