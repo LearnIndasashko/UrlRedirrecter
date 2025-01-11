@@ -1,5 +1,5 @@
 import { RedirrectAnalitic } from "@domain";
-import { Column, CreatedAt, DataType, Index, Model, Sequelize, Table } from "sequelize-typescript";
+import { Column, CreatedAt, DataType, Model, Sequelize, Table } from "sequelize-typescript";
 
 
 interface ICreation {
@@ -7,26 +7,23 @@ interface ICreation {
     shortUrl : string;
 }
 
-@Table({tableName : "analitic"})
+@Table({tableName : "redirect-analitic"})
 export class RedirectAnaliticModel extends Model<RedirrectAnalitic,ICreation> {
     
     @Column({
-        type: DataType.UUID,
+        type: DataType.INTEGER,
         primaryKey: true,
-        defaultValue: Sequelize.literal('gen_random_uuid()'),
+        unique : true,
+        autoIncrement : true,
     })
     id : string;
 
     @Column({
         type : DataType.STRING,
         allowNull : false,
-        validate : {
-            isIP : true
-        }
     })
     ip : string;   
 
-    @Index("short-url")
     @Column({
         type : DataType.STRING,
         allowNull : false,
@@ -37,8 +34,7 @@ export class RedirectAnaliticModel extends Model<RedirrectAnalitic,ICreation> {
     @Column({
         type: DataType.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-        allowNull: false,
     })
-    declare createdAt: Date;
+    createdAt: Date;
     
 }

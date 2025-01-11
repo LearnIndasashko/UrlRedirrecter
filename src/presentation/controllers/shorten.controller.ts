@@ -10,7 +10,6 @@ import {
 
 @controller("/")
 export class ShortenController {
-    
 
     constructor(
         @inject("IShortenService") private readonly shortenService : IShortenService,
@@ -34,8 +33,9 @@ export class ShortenController {
     async get (request : Request, response : Response, next : NextFunction) {
         try {
             const shortUrl = request.params.shortUrl;
-            const originalUrl : string = await this.shortenService.getOriginalUrl(shortUrl);
-            await this.analiticsService.addRedirect(request.ip)
+            const originalUrl : string = await this.shortenService.getOriginalUrl(shortUrl); 
+            await this.shortenService.increese(shortUrl);
+            await this.analiticsService.addRedirect({ip:request.ip, shortUrl : shortUrl});
             return response.redirect(originalUrl);
         } catch(e) {
             next(e);

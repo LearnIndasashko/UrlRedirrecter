@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { AnalitycResponse, IAnaliticsRepository, IAnaliticsService } from "@app";
+import { AnaliticCreationData, AnalitycResponse, IAnaliticsRepository, IAnaliticsService } from "@app";
 import { RedirrectAnalitic } from "@domain";
 
 
@@ -25,8 +25,8 @@ export class AnaliticsService implements IAnaliticsService {
     }
     
     
-    async addRedirect(ip: string): Promise<void> {
-        await this.analiticsRepository.create(ip);
+    async addRedirect(data: AnaliticCreationData): Promise<void> {
+        await this.analiticsRepository.create(data);
     }
 
 }

@@ -1,6 +1,5 @@
 export interface CreateData {
     originalUrl : string;
-    createdAt : Date;
     expiresAt? : Date;
     alias? : string;
 }

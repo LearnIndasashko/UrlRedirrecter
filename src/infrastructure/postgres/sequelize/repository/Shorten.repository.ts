@@ -3,13 +3,30 @@ import { Op } from "sequelize";
 import { ShortUrl } from "@domain";
 import { IShortenRepository,CreateData, ApiError } from "@app";
 import { ShortedModel } from "../models";
+import { Sequelize } from "sequelize-typescript";
 
 export class ShortenRepository implements IShortenRepository {
+    
+    private readonly allisRegex = /^[a-zA-Z0-9\-_]+$/;
+   
+    async increese(shortUrl: string): Promise<void> {
+        await ShortedModel.update({
+            clickCount : Sequelize.literal("clickCount + 1")
+        }, {
+            where : {
+                short : shortUrl
+            }
+        })
+    }
     async create(data: CreateData): Promise<ShortUrl> {
+        
         let short : string = "";
         if (data.alias) {
             if (data.alias.length > 20) {
                 throw ApiError.BadRequest("alias length > 20");
+            }
+            if (!this.allisRegex.test(data.alias)) {
+                throw ApiError.BadRequest("alias wrong symbols");
             }
             short = data.alias;
         } else {
@@ -42,7 +59,7 @@ export class ShortenRepository implements IShortenRepository {
                     short : shortUrl,
                     [Op.or]: [
                         { expiresAt: null },
-                        { expiresAt: { [Op.lt]: new Date() } },
+                        { expiresAt: { [Op.gt]: Sequelize.literal("CURRENT_TIMESTAMP")} },
                       ],
                 }
             });

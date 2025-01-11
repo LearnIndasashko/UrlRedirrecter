@@ -10,6 +10,9 @@ export class ShortenService implements IShortenService {
     ) {
 
     }
+    async increese(shortUrl: string): Promise<void> {
+        await this.shortenRepository.increese(shortUrl);
+    }
     
     async get(shortUrl: string): Promise<ShortenInfoResponse> {
         const shorten : ShortUrl=  await this.shortenRepository.getByShortUrl(shortUrl);
