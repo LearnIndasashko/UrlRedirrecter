@@ -27,7 +27,8 @@ export class SequelizeClient {
 
         this.client.sync().then(async()=>{ 
             console.log("Connected sequelize singleton");
-        }).catch(()=> {
+        }).catch((e)=> {
+            console.log(JSON.stringify(e));
             console.log("Not connected");
         });
     }
