@@ -6,10 +6,6 @@ import { container } from "./container";
 import { serverConfig } from "@config";
 import { errorMiddleware } from './middlewares';
 import { SequelizeClient } from '@infrastructure';
-import swaggerUi from 'swagger-ui-express';
-import swaggerJSDoc from 'swagger-jsdoc';
-
-import {swaggerDefinition} from "./swagger";
 
 
 
@@ -28,15 +24,7 @@ async function bootstrap () {
         app.use(errorMiddleware);
     })
     const seq = container.get(SequelizeClient);
-    const options = {
-        swaggerDefinition,
-        apis: ['./routes/*.ts'],
-    };
-
-    const swaggerSpec = swaggerJSDoc(options);
-
     const app = server.build();
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); 
  
 
     app.listen(

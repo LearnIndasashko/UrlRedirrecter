@@ -16,7 +16,7 @@ export class SequelizeClient {
         this.client = new Sequelize({
             port : databaseConfig.port,
             database : databaseConfig.database,
-            dialect : databaseConfig.dialect as Dialect,
+            dialect : "postgres",
             username : databaseConfig.username,
             password : databaseConfig.password,
             host : databaseConfig.host,

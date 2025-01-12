@@ -1,7 +1,6 @@
 import { IShortenRepository } from "../../application";
 import { ShortenRepository } from "../../infrastructure";
 import { sync } from "../database";
-import { advanceBy } from "jest-date-mock";
 
 
 describe("short url tst",  ()=> {
