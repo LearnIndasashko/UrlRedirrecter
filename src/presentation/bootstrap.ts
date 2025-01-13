@@ -5,13 +5,13 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import { container } from "./container";
 import { serverConfig } from "@config";
 import { errorMiddleware } from './middlewares';
-import { SequelizeClient } from '@infrastructure';
-
+import { SequelizeClient } from '@infrastructure';      
+import swaggerUi from 'swagger-ui-express'; 
+import * as swaggerDocument from "./swagger.json";
 
 
 
 async function bootstrap () {
-
     const server = new InversifyExpressServer(container);
     const port = serverConfig.port;
 
@@ -23,9 +23,12 @@ async function bootstrap () {
     server.setErrorConfig( (app)=>{
         app.use(errorMiddleware);
     })
+
     const seq = container.get(SequelizeClient);
     const app = server.build();
- 
+    
+    app.use('', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    
 
     app.listen(
         port, async () => {

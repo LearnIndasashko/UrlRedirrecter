@@ -1,0 +1,178 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API для сокращения ссылок",
+    "version": "1.0.0",
+    "description": "Это API для создания, получения и удаления коротких ссылок."
+  },
+  "paths": {
+    "/shorten": {
+      "post": {
+        "summary": "Создание новой короткой ссылки",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "originalUrl": {
+                    "type": "string",
+                    "description": "Оригинальная ссылка, которую нужно сократить"
+                  },
+                  "expiresAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Дата и время истечения срока действия короткой ссылки (необязательно)"
+                  },
+                  "alias": {
+                    "type": "string",
+                    "description": "Пользовательский псевдоним для короткой ссылки (необязательно)"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string",
+                    "description": "Короткая ссылка"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/{shortUrl}": {
+          "get": {
+            "summary": "Перенаправление на оригинальную ссылку",
+            "parameters": [
+              {
+                "in": "path",
+                "name": "shortUrl",
+                "required": true,
+                "description": "Короткая ссылка, на которую нужно перенаправить"
+              }
+            ],
+            "responses": {
+              "302": {
+                "description": "Перенаправление"
+              }
+            }
+          },
+          "delete": {
+            "summary": "Удаление короткой ссылки",
+            "parameters": [
+              {
+                "in": "path",
+                "name": "shortUrl",
+                "required": true,
+                "description": "Короткая ссылка, которую нужно удалить"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "OK",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "description": "Сообщение об успешном удалении"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "/info/{shortUrl}": {
+            "get": {
+              "summary": "Получение информации о короткой ссылке",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "shortUrl",
+                  "required": true,
+                  "description": "Короткая ссылка, для которой нужно получить информацию"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "OK",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "originalUrl": {
+                            "type": "string",
+                            "description": "Оригинальная ссылка"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Дата и время создания короткой ссылки"
+                          },
+                          "clickCount": {
+                            "type": "integer",
+                            "description": "Количество переходов по короткой ссылке"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "/analytics/{shortUrl}": {
+              "get": {
+                "summary": "Получение аналитики по короткой ссылке",
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "shortUrl",
+                    "required": true,
+                    "description": "Короткая ссылка, для которой нужно получить аналитику"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "OK",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "redirectsCount": {
+                              "type": "integer",
+                              "description": "Количество переходов по короткой ссылке"
+                            },
+                            "ips": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "description": "Список IP-адресов, перешедших по короткой ссылке"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
