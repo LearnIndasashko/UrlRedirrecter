@@ -40,7 +40,7 @@ export class ShortenService implements IShortenService {
 
     async create(data: CreateData): Promise<string> {
         const shorten : ShortUrl = await this.shortenRepository.create(data);
-        return shorten.originalUrl;
+        return shorten.short;
     }
 
 }

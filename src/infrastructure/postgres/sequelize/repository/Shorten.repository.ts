@@ -11,7 +11,7 @@ export class ShortenRepository implements IShortenRepository {
    
     async increese(shortUrl: string): Promise<void> {
         await ShortedModel.update({
-            clickCount : Sequelize.literal("clickCount + 1")
+            clickCount : Sequelize.literal(`"clickCount" + 1`)
         }, {
             where : {
                 short : shortUrl

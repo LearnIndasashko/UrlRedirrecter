@@ -10,7 +10,7 @@ export class AnaliticRepository implements IAnaliticsRepository {
         })
     }
     async getCount(shortUrl: string): Promise<number> {
-        return await RedirectAnaliticModel.count();
+        return await RedirectAnaliticModel.count({where : {shortUrl : shortUrl}});
     }
     async getLast(shortUrl: string): Promise<RedirrectAnalitic[]> {
         return await RedirectAnaliticModel.findAll({
